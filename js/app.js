@@ -11,7 +11,7 @@ var Enemy = function(x, y) {
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     if (this.x > 505) {
-        this.randomSpeed()
+        this.randomSpeed();
         this.x = -100;
     } else {
         this.x += (this.speed * dt);
@@ -38,6 +38,7 @@ var Player = function(x, y) {
 Player.prototype.update = function(dt) {
     this.checkCollisions();
     if (this.y < 0) {
+        alert("You did it!");
         this.reset();
     }
 };
@@ -46,9 +47,9 @@ Player.prototype.update = function(dt) {
 // locations to check for collisions
 Player.prototype.checkCollisions = function() {
     for (var i = 0; i < allEnemies.length; i++) {
-        if (this.x >= allEnemies[i].x &&
+        if (this.x + 50 >= allEnemies[i].x &&
             this.x < allEnemies[i].x + 60 &&
-            this.y >= allEnemies[i].y &&
+            this.y + 50 >= allEnemies[i].y &&
             this.y < allEnemies[i].y + 40) {
             this.reset();
         }
@@ -70,13 +71,8 @@ Player.prototype.render = function() {
 // This method defines how each key should move the player
 Player.prototype.handleInput = function(direction) {
     if (direction === 'up') {
-        if (this.y > 100) {
             this.y -= 82;
-        } else {
-            alert("You did it!");
-            this.reset();
-        }
-    }
+    }    
     if (direction === 'down') {
         if (this.y < 400) {
             this.y += 82;
