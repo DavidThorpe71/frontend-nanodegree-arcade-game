@@ -1,5 +1,5 @@
 var Score = function (){
-    ctx.clearRect(0, 590, 500, 300);
+    ctx.clearRect(0, 590, 510, 300);
     ctx.font = '40px Impact';
     ctx.fillStyle = 'rgb(95,193,72)';
     ctx.textAlign = 'left';
@@ -8,6 +8,15 @@ var Score = function (){
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 1.5;
     ctx.strokeText('Score: ' + player.score, 5, 630);
+
+    ctx.font = '40px Impact';
+    ctx.fillStyle = 'rgb(78,102,210)';
+    ctx.textAlign = 'right';
+    ctx.fillText('Hi-Score: ' + player.hiscore, 500, 630);
+
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 1.5;
+    ctx.strokeText('Hi-Score: ' + player.hiscore, 500, 630);
 };
 
 
@@ -47,7 +56,7 @@ Enemy.prototype.render = function() {
 // reset(), render() and a handleInput() method.
 var Player = function(x, y) {
     this.lose();
-    
+    this.hiscore = 0;
 };
 
 Player.prototype.update = function(dt) {
@@ -84,6 +93,11 @@ Player.prototype.win = function() {
     this.x = 202;
     this.y = 400;
     this.score += 1;
+    if (this.hiscore >= this.score) {
+        this.hiscore = this.hiscore
+    } else {
+        this.hiscore += 1
+    }
 };
 
 
