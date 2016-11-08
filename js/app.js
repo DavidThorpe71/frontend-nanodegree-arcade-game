@@ -1,3 +1,17 @@
+var Score = function (){
+    ctx.clearRect(0, 590, 500, 300);
+    ctx.font = '40px Impact';
+    ctx.fillStyle = 'rgb(95,193,72)';
+    ctx.textAlign = 'left';
+    ctx.fillText('Score: ' + player.score, 5, 630);
+
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 1.5;
+    ctx.strokeText('Score: ' + player.score, 5, 630);
+};
+
+
+
 // Enemies our player must avoid. Includes random
 // speed each enemy will travel at.
 var Enemy = function(x, y) {
@@ -32,14 +46,15 @@ Enemy.prototype.render = function() {
 // This class has an update(), checkCollisions(),
 // reset(), render() and a handleInput() method.
 var Player = function(x, y) {
-    this.reset();
+    this.lose();
+    
 };
 
 Player.prototype.update = function(dt) {
     this.checkCollisions();
     if (this.y < 0) {
         alert("You did it!");
-        this.reset();
+        this.win();
     }
 };
 
@@ -51,21 +66,30 @@ Player.prototype.checkCollisions = function() {
             this.x < allEnemies[i].x + 60 &&
             this.y + 50 >= allEnemies[i].y &&
             this.y < allEnemies[i].y + 40) {
-            this.reset();
+            this.lose();
         }
     }
 };
 
-// this method sets and resets the player to the starting position
+// this lose method resets the player if the player collides.
 // and randomizes which sprite the player plays as.
-Player.prototype.reset = function() {
+Player.prototype.lose = function() {
     this.x = 202;
     this.y = 400;
     this.sprite = sprites[Math.floor(Math.random() * sprites.length)];
+    this.score = 0;
 };
+
+Player.prototype.win = function() {
+    this.x = 202;
+    this.y = 400;
+    this.score += 1;
+};
+
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    Score();
 };
 
 // This method defines how each key should move the player
