@@ -1,4 +1,13 @@
-var Score = function (){
+var Score = function() {
+    ctx.clearRect(0, 0, 505, 50);
+    ctx.font = '42px Impact';
+    ctx.fillStyle = 'rgb(241,169,65)';
+    ctx.textAlign = 'center';
+    ctx.fillText('Human Versus Bug', 252.5, 40);
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 1.5;
+    ctx.strokeText('Human Versus Bug', 252.5, 40);
+
     ctx.clearRect(0, 590, 510, 300);
     ctx.font = '40px Impact';
     ctx.fillStyle = 'rgb(95,193,72)';
@@ -50,13 +59,17 @@ Enemy.prototype.render = function() {
 };
 
 // Player class
-// This class has an update(), checkCollisions(),
-// reset(), render() and a handleInput() method.
+// This class runs the this.lose function to set the
+// initial playerlocation and randomise which
+// sprite the player will play as
 var Player = function(x, y) {
     this.lose();
     this.hiscore = 0;
 };
 
+// This runs the checkCollisions function
+// and triggers the win method if the player reaches
+// the water
 Player.prototype.update = function(dt) {
     this.checkCollisions();
     if (this.y < 0) {
@@ -65,7 +78,8 @@ Player.prototype.update = function(dt) {
     }
 };
 
-var alerts = ['Mind those Bugs!', 'Oh no! You got hit by a Bug!', "The Bug got you!"]
+// alerts array to be used in the checkCollisions method
+var alerts = ['Mind those Bugs!', 'Oh no! You got hit by a Bug!', "The Bug got you!"];
 // This method compares enemy and player 
 // locations to check for collisions
 Player.prototype.checkCollisions = function() {
@@ -89,18 +103,20 @@ Player.prototype.lose = function() {
     this.score = 0;
 };
 
+// thsi win method resets the player to the beginning
+// and updates the score and hi-scores
 Player.prototype.win = function() {
     this.x = 202;
     this.y = 400;
     this.score += 1;
     if (this.hiscore >= this.score) {
-        this.hiscore = this.hiscore
+        this.hiscore = this.hiscore;
     } else {
-        this.hiscore += 1
+        this.hiscore += 1;
     }
 };
 
-
+//This renders the player and the scores at the bottom of the canvas
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     Score();
@@ -109,8 +125,8 @@ Player.prototype.render = function() {
 // This method defines how each key should move the player
 Player.prototype.handleInput = function(direction) {
     if (direction === 'up') {
-            this.y -= 83;
-    }    
+        this.y -= 83;
+    }
     if (direction === 'down') {
         if (this.y < 400) {
             this.y += 83;
