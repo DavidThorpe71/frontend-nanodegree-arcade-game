@@ -1,3 +1,4 @@
+// Score, Hi-Score and game name are described here
 var Score = function() {
     ctx.clearRect(0, 0, 505, 50);
     ctx.font = '42px Impact';
