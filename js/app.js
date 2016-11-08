@@ -4,7 +4,6 @@ var Score = function (){
     ctx.fillStyle = 'rgb(95,193,72)';
     ctx.textAlign = 'left';
     ctx.fillText('Score: ' + player.score, 5, 630);
-
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 1.5;
     ctx.strokeText('Score: ' + player.score, 5, 630);
@@ -13,7 +12,6 @@ var Score = function (){
     ctx.fillStyle = 'rgb(78,102,210)';
     ctx.textAlign = 'right';
     ctx.fillText('Hi-Score: ' + player.hiscore, 500, 630);
-
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 1.5;
     ctx.strokeText('Hi-Score: ' + player.hiscore, 500, 630);
@@ -43,7 +41,7 @@ Enemy.prototype.update = function(dt) {
 
 // Produces a random speed to be used each time enemy reaches end of the screen
 Enemy.prototype.randomSpeed = function() {
-    this.speed = (Math.floor(Math.random() * (500 - 200)) + 200);
+    this.speed = (Math.floor(Math.random() * (550 - 200)) + 200);
 };
 
 // Draws the enemy on the screen.
@@ -67,6 +65,7 @@ Player.prototype.update = function(dt) {
     }
 };
 
+var alerts = ['Mind those Bugs!', 'Oh no! You got hit by a Bug!', "The Bug got you!"]
 // This method compares enemy and player 
 // locations to check for collisions
 Player.prototype.checkCollisions = function() {
@@ -75,6 +74,7 @@ Player.prototype.checkCollisions = function() {
             this.x < allEnemies[i].x + 60 &&
             this.y + 50 >= allEnemies[i].y &&
             this.y < allEnemies[i].y + 40) {
+            alert(alerts[Math.floor(Math.random() * alerts.length)]);
             this.lose();
         }
     }
@@ -109,11 +109,11 @@ Player.prototype.render = function() {
 // This method defines how each key should move the player
 Player.prototype.handleInput = function(direction) {
     if (direction === 'up') {
-            this.y -= 82;
+            this.y -= 83;
     }    
     if (direction === 'down') {
         if (this.y < 400) {
-            this.y += 82;
+            this.y += 83;
         } else {
             this.y = 400;
         }
@@ -138,9 +138,9 @@ Player.prototype.handleInput = function(direction) {
 // all enemy objects in an array called allEnemies
 // player object in a variable called player
 // sprites array has three possible player sprites to be chosen at random
-var enemyOne = new Enemy(0, 235);
-var enemyTwo = new Enemy(0, 150);
-var enemyThree = new Enemy(0, 66);
+var enemyOne = new Enemy(0, 229);
+var enemyTwo = new Enemy(0, 146);
+var enemyThree = new Enemy(0, 63);
 var sprites = ['images/char-boy.png', 'images/char-cat-girl.png', 'images/char-horn-girl.png'];
 var allEnemies = [enemyOne, enemyTwo, enemyThree];
 var player = new Player(202, 400);
