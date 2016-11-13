@@ -104,7 +104,7 @@ Player.prototype.lose = function() {
     this.score = 0;
 };
 
-// thsi win method resets the player to the beginning
+// this win method resets the player to the beginning
 // and updates the score and hi-scores
 Player.prototype.win = function() {
     this.x = 202;
